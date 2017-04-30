@@ -35,9 +35,13 @@ RUN mkdir -p /consul/data && \
     mkdir -p /consul/config && \
     chown -R consul:consul /consul
 
+ADD ./config/consul.conf /consul/config/consul.conf
+COPY ./config/entrypoint.sh /usr/local/bin/entrypoint.sh
+
 VOLUME /consul/data
 
 EXPOSE 8300
 EXPOSE 8301 8301/udp 8302 8302/udp
 EXPOSE 8400 8500 8600 8600/udp
 
+ENTRYPOINT [ "entrypoint.sh" ]
