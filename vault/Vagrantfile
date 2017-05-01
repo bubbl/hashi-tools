@@ -1,0 +1,18 @@
+# -*- mode: ruby -*-
+
+VAGRANTFILE_API_VERSION = '2'
+Vagrant.require_version '>= 1.6.0'
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  ENV['VAGRANT_DEFAULT_PROVIDER'] = 'docker'
+
+  config.vm.define 'vaultapp' do |v|
+    v.vm.provider 'docker' do |d|
+      d.image = 'bbania/vault:latest'
+      d.cmd = [ 'server' ]
+      d.name = 'vault'
+      d.ports = [ '8200:8200' ]
+      d.remains_running = true
+    end
+  end
+end
